@@ -1,4 +1,4 @@
-package expense
+package category
 
 import (
 	"github.com/gin-gonic/gin"
@@ -9,7 +9,6 @@ func Routes(route *gin.Engine, db *gorm.DB) {
 	repository := NewRepository(db)
 	service := NewService(repository)
 	handler := NewHandler(service)
-	expense := route.Group("/expenses")
-	expense.GET("/", handler.GetExpenses)
-	expense.POST("/", handler.Create)
+	category := route.Group("/category")
+	category.GET("/", handler.GetCategories)
 }

@@ -5,7 +5,7 @@ type Expense struct {
 	CategoryId  uint64 `json:"category_id"`
 	Amount      uint64
 	Description string
-	Date        string
-	createdAt   string `json:"created_at"`
-	updatedAt   string `json:"updated_at"`
+	Date        uint64
+	CreatedAt   uint64 `json:"created_at"`
+	UpdatedAt   uint64 `json:"updated_at"`
 }
