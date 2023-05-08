@@ -19,3 +19,5 @@ func (r *repository) FindAll() ([]Budget, error) {
 	err := r.db.Find(&budgets).Error
 	return budgets, err
 }
+
+

@@ -11,5 +11,9 @@ func Routes(route *gin.Engine, db *gorm.DB) {
 	handler := NewHandler(service)
 	expense := route.Group("/expenses")
 	expense.GET("/", handler.GetExpenses)
+    expense.GET("/:id", handler.GetExpenseById)
+    
 	expense.POST("/", handler.Create)
+    expense.PUT("/:id",handler.UpdateExpense)
+    expense.DELETE("/:id",handler.DeleteExpense)
 }

@@ -2,6 +2,7 @@ package expense
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,6 +29,26 @@ func (h *handler) GetExpenses(c *gin.Context) {
 
 }
 
+func (h *handler) GetExpenseById(c *gin.Context) {
+    idStr := c.Param("id")
+    id ,err := strconv.Atoi(idStr)
+    if err != nil {
+        c.JSON(http.StatusBadRequest,gin.H{
+            "error" : err,
+        })
+    }
+	expense, err := h.service.FindById(uint64(id))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": expense,
+	})
+
+}
 func (h *handler) Create(c *gin.Context) {
 	var expenseRequest ExpenseRequest
 
@@ -50,3 +71,67 @@ func (h *handler) Create(c *gin.Context) {
 		"data": expense,
 	})
 }
+
+func (h *handler) UpdateExpense(c *gin.Context) {
+    
+    var expenseRequest ExpenseRequest
+    err := c.ShouldBindJSON(&expenseRequest)
+    if err != nil {
+        c.JSON(http.StatusBadRequest,gin.H{
+            "error" : err,
+        })
+    }
+
+    idStr := c.Param("id")
+    
+
+    id ,err := strconv.Atoi(idStr)
+    
+	expense, err := h.service.Update(uint64(id),expenseRequest)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data": expense,
+	})
+
+}
+
+func (h *handler)DeleteExpense(c *gin.Context){
+     idStr := c.Param("id")
+
+    id ,err := strconv.Atoi(idStr)
+    if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+            "message" : "Error while convert",
+		})
+		return
+	}
+
+    expense,err :=  h.service.Delete(uint64(id))
+     if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{
+		"data": expense,
+	})
+    
+}
+
+

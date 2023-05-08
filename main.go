@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	
 	r := gin.Default()
 	DB := db.InitDb()
 	expense.Routes(r, DB)

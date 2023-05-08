@@ -6,3 +6,4 @@ type ExpenseRequest struct {
 	Description string `json:"description"`
 	Date        uint   `json:"date"`
 }
+
