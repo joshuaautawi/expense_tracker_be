@@ -1,6 +1,6 @@
 package category
 
-type Category struct {
-	ID   uint64 `gorm:"primaryKey" json:"id"`
-	Name string
-}
+import "github.com/joshua/expense_tracker/models"
+
+
+type Category = models.Category

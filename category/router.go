@@ -11,7 +11,6 @@ func Routes(route *gin.Engine, db *gorm.DB) {
 	handler := NewHandler(service)
 	category := route.Group("/category")
 	category.GET("/", handler.GetCategories)
-	category.GET("/:id", handler.GetCategoryById)
 	category.POST("/", handler.Create)
 	category.PUT("/:id", handler.UpdateCategory)
 	category.DELETE("/:id", handler.DeleteCategory)

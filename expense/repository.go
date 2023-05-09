@@ -20,7 +20,7 @@ func NewRepository(db *gorm.DB) *repository {
 
 func (r *repository) FindAll() ([]Expense, error) {
 	var expenses []Expense
-	err := r.db.Find(&expenses).Error
+	err := r.db.Table("expenses").Select("*").Joins("JOIN categories ON expenses.category_id = categories.id").Find(&expenses).Error
 	return expenses, err
 }
 
